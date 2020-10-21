@@ -1,0 +1,10 @@
+workspace(name = "start_with_genrules")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "libpng",
+    urls = ["https://download.sourceforge.net/libpng/libpng-1.6.37.tar.gz"],
+    sha256 = "daeb2620d829575513e35fecc83f0d3791a620b9b93d800b763542ece9390fb4",
+    strip_prefix = "libpng-1.6.37",
+    build_file = "@//:libpng.BUILD",
+)
