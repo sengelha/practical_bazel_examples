@@ -2,21 +2,15 @@ def _impl(ctx):
     executable = ctx.actions.declare_file(ctx.attr.name)
 
     args = ctx.actions.args()
-    args.add(executable)
+    args.add("-o", executable)
     args.add_all(ctx.files.srcs)
 
-    ctx.actions.run_shell(
+    ctx.actions.run(
         inputs = ctx.files.srcs,
         outputs = [executable],
-        command = """
-OUTPUT_FILE=$1
-shift
-INPUT_FILES=$@
-
-# This is for demo purposes.  In a real Bazel rule you'd
-# want to use cc_common.
-gcc -o $OUTPUT_FILE $INPUT_FILES
-""",
+        # This is for demo purposes.  In a real Bazel rule you'd
+        # want to use cc_common.
+        executable = "/usr/bin/gcc",
         arguments = [args],
     )
     return [
